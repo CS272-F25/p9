@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking</title>
+    <title>Cooking | Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <link href="styles.css" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet">
     <script src="app.js"></script>
 </head>
 <body>
-    <div class="topnav">
-        <div class="topnav-right">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="recipe.html">Recipes</a></li>
-                <li><a href="cart.html">Cart</a></li>
-            </ul>
-        </div>
-    </div>
-    <h1> Home </h1>
+    <header class="bg-light">
+        <nav class="navbar px-3 bg-transparent">
+            <section class="container-fluid d-flex align-items-center">
+
+                <a class="navbar-brand fw-bold text-success nav-section" href="index.html">Home</a>
+
+                <p class="navbar-text fw-bold m-0 text-success text-center nav-section me-3">Cooking Recipes</p>
+
+                <ul class="navbar-nav d-flex flex-row justify-content-end gap-3 nav-section">
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="recipe.html">Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="cart.html">Cart</a></li>
+                </ul>
+            </section>
+        </nav>
+    </header>
+
+    <main>
     <div id = "corousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -35,9 +42,14 @@
     </div>
     <button class = "homebutton" onclick="location.href='recipe.html'">View Recipes</button>
     <p> </p>
+    </main>
 
-    <footer>
-        <p>by Group 9</p>
+    <footer class="bg-light text-center py-3">
+        <section class="container d-flex justify-content-between align-items-center">
+            <p class="mb-1">&copy; 2025</p>
+            <p class="mb-1">LIS 472 Group 9</p>
+            <a href="https://github.com/CS272-F25/p9" class="text-decoration-none">GitHub</a>
+        </section>
     </footer>
 
 

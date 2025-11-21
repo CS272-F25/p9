@@ -1,28 +1,38 @@
-.topnav {
-    justify-content: right;
-    display: flex;
-    background-color: #ebe7d7;
-    padding: 1rem;
-    width: 100%;
-    color: #3a8149;
-    box-sizing: border-box;
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
-.topnav a {
-    margin-left: 1rem;
-    text-decoration: none;
-    color: #3a8149;
-    font-weight: bold;
-}
-.topnav a:hover {
-    color: #489e5b;
-}
-.topnav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+body {
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    font-family: Apple Chancery, cursive;
+    background-color: #efeeea;
+    padding: 0;
 }
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    padding-right: 0;
+    width: 30px;
+}
+
+.nav-section {
+    flex: 1 0 0;
+}
+
+main {
+    flex: 1;
+}
+
+h1 {
+    text-align: center;
+}
+
 
 .homebutton {
     display: block;
@@ -39,27 +49,4 @@
 .carousel-item img {
     max-height: 500px;
     object-fit: cover;
-}
-
-
-
-body {
-    font-family: Apple Chancery, cursive;
-    margin: 0;
-    padding: 0;
-    background-color: #efeeea;
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #e2dcc1;
-    color: #3a8149;
-    width: 100%;
-    bottom: 0;
-    box-sizing: border-box;
-}
-
-h1 {
-    text-align: center;
 }
