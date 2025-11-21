@@ -23,14 +23,42 @@
     padding: 0;
     display: flex;
 }
+
+.homebutton {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background-color: #3a8149;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}   
+
+.carousel-item img {
+    max-height: 500px;
+    object-fit: cover;
+}
+
+
+
 body {
     font-family: Apple Chancery, cursive;
     margin: 0;
     padding: 0;
     background-color: #efeeea;
-    justify-content: center;
 }
 
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #e2dcc1;
+    color: #3a8149;
+    width: 100%;
+    bottom: 0;
+    box-sizing: border-box;
+}
 
 h1 {
     text-align: center;
