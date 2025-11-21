@@ -50,3 +50,9 @@ h1 {
     max-height: 500px;
     object-fit: cover;
 }
+
+.recipe {
+    margin-bottom: 2rem;
+    justify-content: center;
+    padding-left: 20%;
+}
