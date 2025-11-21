@@ -12,11 +12,13 @@ function clearCart() {
 
 function displayCart() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let cartList = document.querySelector('.ingredientscart');
-    cartList.innerHTML = '';
-    cart.forEach(item => {
-        let li = document.createElement('li');
-        li.textContent = item;
+    const cartList = document.querySelector('.ingredientscart');
+    while (cartList.firstChild) {
+        cartList.removeChild(cartList.firstChild);
+    }
+    cart.forEach(ingredient => {
+        const li = document.createElement('li');
+        li.innerText = ingredient;
         cartList.appendChild(li);
     });
 }
