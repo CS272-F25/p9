@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking | Meal Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link href="styles.css" rel="stylesheet">
+    <script src="app.js"></script>
+</head>
+<body>
+    <header class="bg-light">
+        <nav class="navbar px-3 bg-transparent">
+            <section class="container-fluid d-flex align-items-center">
+                <a class="navbar-brand fw-bold text-success nav-section" href="index.html">Home</a>
+                <p class="navbar-text fw-bold m-0 text-success text-center nav-section me-3">Cooking Portal</p>
+                <ul class="navbar-nav d-flex flex-row justify-content-end gap-3 nav-section">
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="recipe.html">Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="cuisines.html">Cuisines</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="planner.html">Meal Planner</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="favorites.html">Favorites</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="about.html">About</a></li>
+                </ul>
+            </section>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        <h1 class="text-center mb-4">Weekly Meal Planner</h1>
+        <p class="text-center text-muted mb-4">Plan your meals for the week by typing in recipe names or selecting from your favorites.</p>
+
+        <!-- Meal Planner Form -->
+        <form id="planner-form" aria-labelledby="planner-heading">
+            <h2 id="planner-heading" class="visually-hidden">Plan Your Meals</h2>
+            
+            <div class="row g-3">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-3">
+                        <label for="monday" class="form-label fw-bold">Monday</label>
+                        <div class="planner-input-wrapper">
+                            <input type="text" class="form-control planner-input" id="monday" name="monday" placeholder="Search for a meal..." autocomplete="off">
+                            <div class="suggestions-list" id="monday-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-3">
+                        <label for="tuesday" class="form-label fw-bold">Tuesday</label>
+                        <div class="planner-input-wrapper">
+                            <input type="text" class="form-control planner-input" id="tuesday" name="tuesday" placeholder="Search for a meal..." autocomplete="off">
+                            <div class="suggestions-list" id="tuesday-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-3">
+                        <label for="wednesday" class="form-label fw-bold">Wednesday</label>
+                        <div class="planner-input-wrapper">
+                            <input type="text" class="form-control planner-input" id="wednesday" name="wednesday" placeholder="Search for a meal..." autocomplete="off">
+                            <div class="suggestions-list" id="wednesday-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-3">
+                        <label for="thursday" class="form-label fw-bold">Thursday</label>
+                        <div class="planner-input-wrapper">
+                            <input type="text" class="form-control planner-input" id="thursday" name="thursday" placeholder="Search for a meal..." autocomplete="off">
+                            <div class="suggestions-list" id="thursday-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-3">
+                        <label for="friday" class="form-label fw-bold">Friday</label>
+                        <div class="planner-input-wrapper">
+                            <input type="text" class="form-control planner-input" id="friday" name="friday" placeholder="Search for a meal..." autocomplete="off">
+                            <div class="suggestions-list" id="friday-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-3">
+                        <label for="saturday" class="form-label fw-bold">Saturday</label>
+                        <div class="planner-input-wrapper">
+                            <input type="text" class="form-control planner-input" id="saturday" name="saturday" placeholder="Search for a meal..." autocomplete="off">
+                            <div class="suggestions-list" id="saturday-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-3">
+                        <label for="sunday" class="form-label fw-bold">Sunday</label>
+                        <div class="planner-input-wrapper">
+                            <input type="text" class="form-control planner-input" id="sunday" name="sunday" placeholder="Search for a meal..." autocomplete="off">
+                            <div class="suggestions-list" id="sunday-suggestions"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success btn-lg me-2">Save Plan</button>
+                <button type="button" class="btn btn-outline-danger btn-lg" onclick="clearPlanner()">Clear Plan</button>
+            </div>
+        </form>
+
+        <!-- Saved Plan Display -->
+        <section aria-labelledby="saved-plan-heading" class="mt-5">
+            <h2 id="saved-plan-heading" class="text-center mb-3">Your Saved Plan</h2>
+            <div id="saved-plan" class="row g-3">
+                <p class="text-center text-muted col-12">No meal plan saved yet.</p>
+            </div>
+            <div id="print-section" class="text-center mt-3" style="display: none;">
+                <button class="btn btn-primary" onclick="window.print()">Print Plan</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-light text-center py-3">
+        <section class="container d-flex justify-content-between align-items-center">
+            <p class="mb-1">&copy; 2025</p>
+            <p class="mb-1">LIS 472 Group 9</p>
+            <a href="https://github.com/CS272-F25/p9" class="text-decoration-none">GitHub</a>
+        </section>
+    </footer>
+</body>
+</html>

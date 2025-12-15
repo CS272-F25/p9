@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking | About</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-light">
+        <nav class="navbar px-3 bg-transparent">
+            <section class="container-fluid d-flex align-items-center">
+                <a class="navbar-brand fw-bold text-success nav-section" href="index.html">Home</a>
+                <p class="navbar-text fw-bold m-0 text-success text-center nav-section me-3">Cooking Portal</p>
+                <ul class="navbar-nav d-flex flex-row justify-content-end gap-3 nav-section">
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="recipe.html">Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="cuisines.html">Cuisines</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="planner.html">Meal Planner</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="favorites.html">Favorites</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-primary" href="about.html">About</a></li>
+                </ul>
+            </section>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        <h1 class="text-center mb-4">About Cooking Portal</h1>
+        
+        <section aria-labelledby="mission-heading" class="mb-5">
+            <h2 id="mission-heading" class="h4">Our Mission</h2>
+            <p>Cooking Portal is a one stop shop where recipes and shopping come together. Our goal is to help home cooks discover new meals, save their favorites, and generate grocery lists based on selected recipes. Whether you're a beginner or a seasoned chef, we make meal planning simple and enjoyable.</p>
+        </section>
+
+        <section aria-labelledby="features-heading" class="mb-5">
+            <h2 id="features-heading" class="h4">Features</h2>
+            <dl class="row">
+                <dt class="col-sm-3">Recipe Search</dt>
+                <dd class="col-sm-9">Search thousands of recipes from around the world using TheMealDB database.</dd>
+                
+                <dt class="col-sm-3">Browse by Cuisine</dt>
+                <dd class="col-sm-9">Explore recipes organized by cuisine type like Italian, Mexican, Japanese, and more.</dd>
+                
+                <dt class="col-sm-3">Save Favorites</dt>
+                <dd class="col-sm-9">Keep track of recipes you love and access them anytime from your favorites list.</dd>
+                
+                <dt class="col-sm-3">Shopping Cart</dt>
+                <dd class="col-sm-9">Add ingredients directly to your cart and take it with you to the grocery store.</dd>
+            </dl>
+        </section>
+
+        <section aria-labelledby="team-heading" class="mb-5">
+            <h2 id="team-heading" class="h4">Our Team</h2>
+            <p>This website was created by LIS 472 Group 9 as a collaborative web development project at the University of Wisconsin-Madison.</p>
+            <div class="row g-4 mt-2">
+                <article class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h3 class="h5">Aidan Truong</h3>
+                        <p class="text-muted mb-0">Search & API Integration, Favorites, Cuisines, About, and Planner Page</p>
+                    </div>
+                </article>
+                <article class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h3 class="h5">Team Member 2</h3>
+                        <p class="text-muted mb-0">Role / Contribution</p>
+                    </div>
+                </article>
+                <article class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h3 class="h5">Team Member 3</h3>
+                        <p class="text-muted mb-0">Role / Contribution</p>
+                    </div>
+                </article>
+                <article class="col-md-3">
+                    <div class="card text-center p-3">
+                        <h3 class="h5">Team Member 4</h3>
+                        <p class="text-muted mb-0">Role / Contribution</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section aria-labelledby="tech-heading" class="mb-5">
+            <h2 id="tech-heading" class="h4">Technologies Used</h2>
+            <ul>
+                <li><strong>HTML5</strong> - Semantic markup and structure</li>
+                <li><strong>CSS3</strong> - Custom styling</li>
+                <li><strong>Bootstrap 5</strong> - Responsive layout and components</li>
+                <li><strong>JavaScript</strong> - Dynamic functionality and API integration</li>
+                <li><strong>TheMealDB API</strong> - Recipe data source</li>
+                <li><strong>localStorage</strong> - Persistent favorites and cart data</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="h4">Contact</h2>
+            <address>
+                Have questions or feedback? Reach out to us through our <a href="https://github.com/CS272-F25/p9">GitHub repository</a>.
+            </address>
+        </section>
+    </main>
+
+    <footer class="bg-light text-center py-3">
+        <section class="container d-flex justify-content-between align-items-center">
+            <p class="mb-1">&copy; 2025</p>
+            <p class="mb-1">LIS 472 Group 9</p>
+            <a href="https://github.com/CS272-F25/p9" class="text-decoration-none">GitHub</a>
+        </section>
+    </footer>
+</body>
+</html>

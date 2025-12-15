@@ -234,6 +234,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize favorites display if on favorites page
     displayFavorites();
     
+    // Initialize cuisines if on cuisines page
+    loadCuisines();
+    
+    // Initialize planner if on planner page
+    displayPlanner();
+    loadPlannerForm();
+    setupPlannerAutocomplete();
+    
     // Set up search form if on recipe page
     const searchForm = document.getElementById('search-form');
     if (searchForm) {
@@ -245,4 +253,309 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Set up planner form if on planner page
+    const plannerForm = document.getElementById('planner-form');
+    if (plannerForm) {
+        plannerForm.addEventListener('submit', savePlanner);
+    }
 });
+
+/**
+ * Fetches all available cuisines from TheMealDB and creates filter buttons
+ */
+async function loadCuisines() {
+    const buttonContainer = document.getElementById('cuisine-buttons');
+    if (!buttonContainer) return; // Not on cuisines page
+    
+    try {
+        // Fetch list of all areas/cuisines
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+        const data = await response.json();
+        
+        buttonContainer.innerHTML = '';
+        
+        data.meals.forEach(cuisine => {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-outline-success';
+            btn.textContent = cuisine.strArea;
+            btn.onclick = () => loadRecipesByCuisine(cuisine.strArea);
+            buttonContainer.appendChild(btn);
+        });
+    } catch (error) {
+        console.error('Error loading cuisines:', error);
+        buttonContainer.innerHTML = '<p class="text-danger">Error loading cuisines. Please refresh.</p>';
+    }
+}
+
+/**
+ * Fetches and displays recipes for a specific cuisine
+ * @param {string} cuisine - The cuisine/area name (e.g., "Italian", "Mexican")
+ */
+async function loadRecipesByCuisine(cuisine) {
+    const resultsContainer = document.getElementById('cuisine-results');
+    const heading = document.getElementById('cuisine-results-heading');
+    
+    heading.textContent = `${cuisine} Recipes`;
+    resultsContainer.innerHTML = '<p class="text-center col-12">Loading...</p>';
+    
+    // Update active button state
+    const buttons = document.querySelectorAll('#cuisine-buttons button');
+    buttons.forEach(btn => {
+        if (btn.textContent === cuisine) {
+            btn.classList.remove('btn-outline-success');
+            btn.classList.add('btn-success');
+        } else {
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-outline-success');
+        }
+    });
+    
+    try {
+        // Fetch recipes filtered by area
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${encodeURIComponent(cuisine)}`);
+        const data = await response.json();
+        
+        resultsContainer.innerHTML = '';
+        
+        if (!data.meals) {
+            resultsContainer.innerHTML = '<p class="text-center text-muted col-12">No recipes found for this cuisine.</p>';
+            return;
+        }
+        
+        // Display each meal as a card
+        data.meals.forEach(meal => {
+            const card = document.createElement('article');
+            card.className = 'col-12 col-sm-6 col-lg-4';
+            card.innerHTML = `
+                <div class="card h-100">
+                    <img src="${meal.strMealThumb}" class="card-img-top" alt="${meal.strMeal}">
+                    <div class="card-body">
+                        <h3 class="card-title h5">${meal.strMeal}</h3>
+                        <button class="btn btn-primary btn-sm me-1" onclick="viewRecipeDetails('${meal.idMeal}')">View Recipe</button>
+                        <button class="btn btn-outline-success btn-sm" onclick="saveFavoriteById('${meal.idMeal}')">♥ Save</button>
+                    </div>
+                </div>
+            `;
+            resultsContainer.appendChild(card);
+        });
+    } catch (error) {
+        console.error('Error loading recipes:', error);
+        resultsContainer.innerHTML = '<p class="text-center text-danger col-12">Error loading recipes. Please try again.</p>';
+    }
+}
+
+/**
+ * Saves a recipe to favorites using just the meal ID
+ * (Used when we only have ID from filter results, not full meal object)
+ * @param {string} id - Meal ID
+ */
+async function saveFavoriteById(id) {
+    try {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+        const data = await response.json();
+        const meal = data.meals[0];
+        addToFavorites(meal);
+    } catch (error) {
+        console.error('Error saving favorite:', error);
+        alert('Error saving to favorites. Please try again.');
+    }
+}
+
+/**
+ * Saves the meal plan form data to localStorage
+ * @param {Event} e - Form submit event
+ */
+function savePlanner(e) {
+    e.preventDefault();
+    
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const plan = {};
+    
+    days.forEach(day => {
+        const input = document.getElementById(day);
+        if (input) {
+            plan[day] = input.value.trim();
+        }
+    });
+    
+    localStorage.setItem('mealPlan', JSON.stringify(plan));
+    alert('Meal plan saved!');
+    displayPlanner();
+}
+
+/**
+ * Clears the meal plan from localStorage and resets the form
+ */
+function clearPlanner() {
+    localStorage.removeItem('mealPlan');
+    const form = document.getElementById('planner-form');
+    if (form) {
+        form.reset();
+    }
+    displayPlanner();
+    alert('Meal plan cleared!');
+}
+
+/**
+ * Displays the saved meal plan on the page
+ */
+function displayPlanner() {
+    const container = document.getElementById('saved-plan');
+    const printSection = document.getElementById('print-section');
+    if (!container) return; // Not on planner page
+    
+    const plan = JSON.parse(localStorage.getItem('mealPlan'));
+    
+    if (!plan || Object.values(plan).every(val => val === '')) {
+        container.innerHTML = '<p class="text-center text-muted col-12">No meal plan saved yet.</p>';
+        if (printSection) printSection.style.display = 'none';
+        return;
+    }
+    
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    
+    container.innerHTML = '';
+    
+    days.forEach((day, index) => {
+        if (plan[day]) {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-3';
+            col.innerHTML = `
+                <div class="card p-3 h-100">
+                    <h3 class="h6 fw-bold">${dayNames[index]}</h3>
+                    <p class="mb-0">${plan[day]}</p>
+                </div>
+            `;
+            container.appendChild(col);
+        }
+    });
+    
+    // Show print button if there's a plan
+    if (printSection) printSection.style.display = 'block';
+}
+
+/**
+ * Loads saved meal plan into the form inputs
+ */
+function loadPlannerForm() {
+    const plan = JSON.parse(localStorage.getItem('mealPlan'));
+    if (!plan) return;
+    
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    
+    days.forEach(day => {
+        const input = document.getElementById(day);
+        if (input && plan[day]) {
+            input.value = plan[day];
+        }
+    });
+}
+
+/** 
+ * Debounce timer for autocomplete to avoid too many API calls
+ */
+let debounceTimer;
+
+/**
+ * Fetches meal suggestions from API based on input
+ * @param {string} query - Search term
+ * @param {string} day - Day of the week (used to target correct suggestions div)
+ */
+async function fetchMealSuggestions(query, day) {
+    const suggestionsDiv = document.getElementById(`${day}-suggestions`);
+    if (!suggestionsDiv) return;
+    
+    // Clear if query is too short
+    if (query.length < 2) {
+        suggestionsDiv.classList.remove('show');
+        suggestionsDiv.innerHTML = '';
+        return;
+    }
+    
+    try {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        
+        suggestionsDiv.innerHTML = '';
+        
+        if (!data.meals) {
+            suggestionsDiv.classList.remove('show');
+            return;
+        }
+        
+        // Show up to 5 suggestions
+        const meals = data.meals.slice(0, 5);
+        
+        meals.forEach(meal => {
+            const item = document.createElement('div');
+            item.className = 'suggestion-item';
+            item.innerHTML = `
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                <span>${meal.strMeal}</span>
+            `;
+            item.onclick = () => selectMealSuggestion(day, meal.strMeal);
+            suggestionsDiv.appendChild(item);
+        });
+        
+        suggestionsDiv.classList.add('show');
+    } catch (error) {
+        console.error('Error fetching suggestions:', error);
+    }
+}
+
+/**
+ * Handles selection of a meal from suggestions
+ * @param {string} day - Day of the week
+ * @param {string} mealName - Selected meal name
+ */
+function selectMealSuggestion(day, mealName) {
+    const input = document.getElementById(day);
+    const suggestionsDiv = document.getElementById(`${day}-suggestions`);
+    
+    if (input) {
+        input.value = mealName;
+    }
+    if (suggestionsDiv) {
+        suggestionsDiv.classList.remove('show');
+        suggestionsDiv.innerHTML = '';
+    }
+}
+
+/**
+ * Sets up autocomplete listeners for all planner inputs
+ */
+function setupPlannerAutocomplete() {
+    const inputs = document.querySelectorAll('.planner-input');
+    
+    inputs.forEach(input => {
+        const day = input.id;
+        
+        // Fetch suggestions on input with debounce
+        input.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                fetchMealSuggestions(this.value.trim(), day);
+            }, 300);
+        });
+        
+        // Hide suggestions when clicking outside
+        input.addEventListener('blur', function() {
+            // Small delay to allow click on suggestion
+            setTimeout(() => {
+                const suggestionsDiv = document.getElementById(`${day}-suggestions`);
+                if (suggestionsDiv) {
+                    suggestionsDiv.classList.remove('show');
+                }
+            }, 200);
+        });
+        
+        // Show suggestions again on focus if there's input
+        input.addEventListener('focus', function() {
+            if (this.value.trim().length >= 2) {
+                fetchMealSuggestions(this.value.trim(), day);
+            }
+        });
+    });
+}

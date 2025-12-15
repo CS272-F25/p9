@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking | Cart</title>
+    <title>Cooking | Cuisines</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <link href="styles.css" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet">
     <script src="app.js"></script>
 </head>
 <body>
     <header class="bg-light">
         <nav class="navbar px-3 bg-transparent">
             <section class="container-fluid d-flex align-items-center">
-
                 <a class="navbar-brand fw-bold text-success nav-section" href="index.html">Home</a>
-
                 <p class="navbar-text fw-bold m-0 text-success text-center nav-section me-3">Cooking Portal</p>
-
                 <ul class="navbar-nav d-flex flex-row justify-content-end gap-3 nav-section">
                     <li class="nav-item"><a class="nav-link fw-bold text-primary" href="recipe.html">Recipes</a></li>
                     <li class="nav-item"><a class="nav-link fw-bold text-primary" href="cuisines.html">Cuisines</a></li>
@@ -28,26 +25,42 @@
                 </ul>
             </section>
         </nav>
-    </header>    <h1> Cart </h1>
-    
+    </header>
 
-    <main>
-        <div class = "recipe">
-            <ul class="ingredientscart">
-            </ul>
-        <button onclick="clearCart()" >Clear cart</button>
-        <br> <br>
-        <p> Use this as a shopping list for you to use</p>
-        <img src="images/shopping-cart-318769_1280.jpg" alt="Shopping Cart next to grocery store" style="max-width:300px;">
-        <br> <br>
-        <p> Folow the below steps to complete shopping </p>
-        <ol class="steps">
-                <li> Go to your grocery store </li>
-                <li> Find the ingredients in your cart </li>
-                <li> Purchase the ingredients </li>
-                <li> Enjoy the recipes </li>
-        </ol>
-    </div>
+    <main class="container py-4">
+        <h1 class="text-center mb-4">Browse by Cuisine</h1>
+        
+        <!-- Cuisine Filter Buttons -->
+        <section aria-labelledby="cuisine-filter-heading" class="mb-4">
+            <h2 id="cuisine-filter-heading" class="visually-hidden">Select a Cuisine</h2>
+            <div id="cuisine-buttons" class="d-flex flex-wrap justify-content-center gap-2">
+                <!-- Buttons loaded by JavaScript -->
+                <p class="text-muted">Loading cuisines...</p>
+            </div>
+        </section>
+
+        <!-- Results Container -->
+        <section aria-labelledby="cuisine-results-heading">
+            <h2 id="cuisine-results-heading" class="text-center mb-3">Select a cuisine above to view recipes</h2>
+            <div id="cuisine-results" class="row g-4">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Recipe Detail Modal -->
+        <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="recipeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="recipeModalLabel">Recipe Details</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="bg-light text-center py-3">
@@ -57,7 +70,5 @@
             <a href="https://github.com/CS272-F25/p9" class="text-decoration-none">GitHub</a>
         </section>
     </footer>
-
-
 </body>
 </html>
