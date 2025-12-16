@@ -111,3 +111,24 @@ a {
     object-fit: cover;
     border-radius: 4px;
 }
+
+.cuisine-buttons {
+    color: #356640;
+
+}
+
+.btn-outline-success {
+  --bs-btn-color: #0d492d;
+  --bs-btn-border-color: #0d492d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0d492d;
+  --bs-btn-hover-border-color: #0d492d;
+}
+
+.btn-outline-danger {
+  --bs-btn-color: #741717;
+  --bs-btn-border-color: #741717;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #741717;
+  --bs-btn-hover-border-color: #741717;
+}
